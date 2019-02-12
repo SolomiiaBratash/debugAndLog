@@ -1,0 +1,265 @@
+##3
+#Configuration:
+#  packages: "com.bratash.task"
+#  name: Log4j2_Config
+#  Properties:
+#    Property:
+#      name: log-path
+#      value: logs
+#  #-------------------------------------------------------------------------------
+#  Appenders:
+#    Console:
+#      name: Console_Appender
+#      PatternLayout:
+#        Pattern: "%highlight{%-5level}{FATAL=bg_red} %style{%date{yyyy-MM-dd HH:mm:ss.SSS}}{blue} %class{1}:%L - %highlight{%msg} %xEx{short}%n"
+#  #-------------------------------------------------------------------------------
+#  Loggers:
+#    Logger:
+#      - name: com.bratash.task.Application
+#        level: all
+#        AppenderRef:
+#        - ref: Console_Appender
+#          level: trace
+#
+##3.1
+#Configuration:
+#  packages: "com.bratash.task"
+#  name: Log4j2_Config
+#  Properties:
+#    Property:
+#      name: log-path
+#      value: logs
+#  #-------------------------------------------------------------------------------
+#  Appenders:
+#    #file will not be overwritten
+#    File:
+#      name: LogFile
+#      fileName: ${log-path}/File.log
+#      PatternLayout:
+#        Pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %class{1}:%L - %msg
+#        %xEx{short}%n"
+#  #-------------------------------------------------------------------------------
+#  Loggers:
+#    Root:
+#      level: all
+#      AppenderRef:
+#        - ref: LogFile
+#
+##3.2
+#Configuration:
+#  packages: "com.bratash.task"
+#  name: Log4j2_Config
+#  Properties:
+#    Property:
+#      name: log-path
+#      value: logs
+#  #-------------------------------------------------------------------------------
+#  Appenders:
+#    # file will be overwritten every day (10:15)
+#    RollingFile:
+#        name: LogFile
+#        fileName: ${log-path}/File2.log
+#        filePattern: ${log-path}/archive/LogFile.log
+#        PatternLayout:
+#          Pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %class{1}:%L - %msg
+#                    %xEx{short}%n"
+#        CronTriggeringPolicy:
+#              schedule: "0 0 21 ? * *"
+#              evaluateOnStartup: true
+#        DefaultRolloverStrategy:
+#          max: 1
+#  #-------------------------------------------------------------------------------
+#  Loggers:
+#    Root:
+#      level: all
+#      AppenderRef:
+#        - ref: LogFile
+#
+##3.3
+#Configuration:
+#  packages: "com.bratash.task"
+#  name: Log4j2_Config
+#  Properties:
+#    Property:
+#      name: log-path
+#      value: logs
+#  #-------------------------------------------------------------------------------
+#  Appenders:
+#    # file will be overwritten after reaching the size of 1 MB
+#    RollingFile:
+#        name: LogFile
+#        fileName: ${log-path}/File3.log
+#        filePattern: ${log-path}/archive/LogFile.log.%d{yyyy-MM-dd-hh-mm}.gz
+#        PatternLayout:
+#          Pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %class{1}:%L - %msg
+#                    %xEx{short}%n"
+#        Policies:
+#          SizeBasedTriggeringPolicy:
+#            size: 1 MB
+#  #-------------------------------------------------------------------------------
+#  Loggers:
+#    Root:
+#      level: all
+#      AppenderRef:
+#        - ref: LogFile
+#
+##3.4
+#Configuration:
+#  packages: "com.bratash.task"
+#  name: Log4j2_Config
+#  Properties:
+#    Property:
+#      name: log-path
+#      value: logs
+#  #-------------------------------------------------------------------------------
+#  Appenders:
+#    # every day log will be written archive file
+#    RollingFile:
+#        name: LogFile
+#        fileName: ${log-path}/File4.log
+#        filePattern: ${log-path}/archive/LogFile-%d{yy-MM-dd}.log
+#        PatternLayout:
+#          Pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %class{1}:%L - %msg
+#                      %xEx{short}%n"
+#        Policies:
+#          TimeBasedTriggeringPolicy:
+#            interval: 1
+#            modulate: true
+#  #-------------------------------------------------------------------------------
+#  Loggers:
+#    Root:
+#      level: all
+#      AppenderRef:
+#        - ref: LogFile
+#
+##4
+#Configuration:
+#  packages: "com.bratash.task"
+#  name: Log4j2_Config
+#  Properties:
+#    Property:
+#      name: log-path
+#      value: logs
+#  #-------------------------------------------------------------------------------
+#  Appenders:
+#    #Configure logger that all levels higher than “WARN” will be saved in the file
+#    File:
+#      name: LogFile
+#      fileName: ${log-path}/File5.log
+#      PatternLayout:
+#        Pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %class{1}:%L - %msg
+#        %xEx{short}%n"
+#  #-------------------------------------------------------------------------------
+#  Loggers:
+#    Root:
+#      level: all
+#      AppenderRef:
+#        - ref: LogFile
+#          level: error
+#
+##5 Configure logger that in the file will be recorded only “WARN”, and in the console – only “INFO”.
+#Configuration:
+#  packages: "com.bratash.task"
+#  name: Log4j2_Config
+#  Properties:
+#    Property:
+#      name: log-path
+#      value: logs
+#  #-------------------------------------------------------------------------------
+#  Appenders:
+#    Console:
+#      name: Console_Appender
+#      LevelRangeFilter: {
+#        "minLevel": "warn",
+#        "maxLevel": "warn",
+#      }
+#      PatternLayout:
+#        Pattern: "%highlight{%-5level}{FATAL=bg_red} %style{%date{yyyy-MM-dd HH:mm:ss.SSS}}{blue} %class{1}:%L - %highlight{%msg} %xEx{short}%n"
+#    File:
+#      name: LogFile
+#      fileName: ${log-path}/File6.log
+#      LevelRangeFilter: {
+#        "minLevel": "info",
+#        "maxLevel": "info",
+#      }
+#      PatternLayout:
+#        Pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} %class{1}:%L - %msg
+#          %xEx{short}%n"
+#  #-------------------------------------------------------------------------------
+#  Loggers:
+#    Logger:
+#      - name: com.bratash.task.Application
+#        level: all
+#        AppenderRef:
+#        - ref: Console_Appender
+#    Root:
+#        level: all
+#        AppenderRef:
+#        - ref: LogFile
+#
+##6 Configure logger that “ERROR” will be sent on e-mail.
+#Configuration:
+#  packages: "com.bratash.task"
+#  name: Log4j2_Config
+#  Properties:
+#    Property:
+#      name: log-path
+#      value: logs
+#  #-------------------------------------------------------------------------------
+#  Appenders:
+#    #will be sent on e-mail
+#    SMTP:
+#      name: MailAppender
+#      LevelRangeFilter: {
+#        "minLevel": "error",
+#        "maxLevel": "error",
+#      }
+#      subject: "Error Log"
+#      to: "brsolomia@gmail.com"
+#      from: "solomijka99@gmail.com"
+#      smtpHost: smtp.gmail.com
+#      smtpPort: 465
+#      smtpProtocol: smtps
+#      smtpUsername: "solomijka99@gmail.com"
+#      smtpPassword: "XXXXXXXX"
+#      bufferSize: 512
+#      HTMLLayout:
+#        charset: "UTF-8"
+#        title: "Logs from Bratash project debugAndLog"
+#  #-------------------------------------------------------------------------------
+#  Loggers:
+#    Root:
+#        level: error
+#        AppenderRef:
+#        - ref: MailAppender
+#          level: error
+
+#7 Configure logger that “FATAL” will be sent via SMS.
+Configuration:
+  packages: "com.bratash.task"
+  name: Log4j2_Config
+  Properties:
+    Property:
+      name: log-path
+      value: logs
+  #------------------------------------------------------------------------
+  appenders:
+    SMS:
+      name: SMSsender
+      LevelRangeFilter: {
+        "minLevel": "fatal",
+        "maxLevel": "fatal",
+      }
+      PatternLayout:
+        Pattern: "[%-5level] %d{yyyy-MM-dd HH:mm:ss} - %msg %xEx{short}"
+    Async:
+      name: AsyncSMS
+      AppenderRef:
+        ref: SMSsender
+  #------------------------------------------------------------------------
+  Loggers:
+    Logger:
+      - name: com.bratash.task.ExampleSMS
+        level: all
+        AppenderRef:
+        - ref: AsyncSMS
