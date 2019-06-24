@@ -12,7 +12,7 @@ public class ExampleSMS {
     public static void send(String str) {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         Message message = Message
-                .creator(new PhoneNumber("+380500743046"), /*my phone number*/
+                .creator(new PhoneNumber("+380"), /*my phone number*/
                         new PhoneNumber("+12052674929"), str) .create(); /*attached to me number*/
     }
 
